@@ -46,28 +46,28 @@
             itemWidth: 30,
             columns: 4,
             rows: undefined,
-            title: "Every N minutes"
+            title: "时间单位: 分钟"
         },
         minuteOpts: {
             minWidth: 100, // only applies if columns and itemWidth not set
             itemWidth: 30,
             columns: 4,
             rows: undefined,
-            title: "Minutes Past the Hour"
+            title: "时间单位: 分钟"
         },
         timeHourOpts: {
             minWidth: 100, // only applies if columns and itemWidth not set
             itemWidth: 20,
             columns: 2,
             rows: undefined,
-            title: "Time: Hour"
+            title: "时间单位: 小时"
         },
         domOpts: {
             minWidth: 100, // only applies if columns and itemWidth not set
             itemWidth: 30,
             columns: undefined,
             rows: 10,
-            title: "Day of Month"
+            title: "时间单位: 日期"
         },
         monthOpts: {
             minWidth: 100, // only applies if columns and itemWidth not set
@@ -88,7 +88,7 @@
             itemWidth: 20,
             columns: 4,
             rows: undefined,
-            title: "Time: Minute"
+            title: "时间单位: 分钟"
         },
         effectOpts: {
             openSpeed: 400,
@@ -129,13 +129,14 @@
     var str_opt_dom = "";
     for (var i = 1; i < 32; i++) {
         if (i == 1 || i == 21) { var suffix = "st"; } else if (i == 2 || i == 22) { var suffix = "nd"; } else if (i == 3 || i == 23) { var suffix = "rd"; } else { var suffix = "th"; }
-        str_opt_dom += "<option value='" + i + "'>" + i + suffix + "</option>\n";
+        str_opt_dom += "<option value='" + i + "'>" + (i > 9 ? i : ('0' + i)) + suffix + "</option>\n";
     }
 
     // options for months
     var str_opt_month = "";
     var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    for (var i = 0; i < months.length; i++) { str_opt_month += "<option value='" + (i + 1) + "'>" + months[i] + "</option>\n"; }
+    var monthsZH = ["01月", "02月", "03月", "04月", "05月", "06月", "07月", "08月", "09月", "10月", "11月", "12月"];
+    for (var i = 0; i < months.length; i++) { str_opt_month += "<option value='" + (i + 1) + "'>" + monthsZH[i] + "</option>\n"; }
 
     // options for day of week
     var str_opt_dow = "";
@@ -288,7 +289,7 @@
                 cv = o.customValues;
             if (defined(cv)) { for (var key in cv) { custom_periods += "<option value='" + cv[key] + "'>" + key + "</option>\n"; } }
             block["period"] = $("<span class='cronperiod'>" +
-                    "维度选择: <select name='cronperiod'>" + custom_periods +
+                    "维度选择 <select name='cronperiod'>" + custom_periods +
                     str_opt_period + "</select> </span>")
                 .appendTo(this)
                 .data("root", this)
@@ -299,7 +300,7 @@
                 .end();
 
             block["dom"] = $("<span class='cron-block cron-block-dom'>" +
-                    " on the <select name='crondom'>" + str_opt_dom +
+                    " 的 <select name='crondom'>" + str_opt_dom +
                     "</select> </span>")
                 .appendTo(this)
                 .data("root", this)
@@ -309,8 +310,8 @@
                 .end();
 
             block["month"] = $("<span class='cron-block cron-block-month'>" +
-                    " of <select name='cronmonth'>" + str_opt_month +
-                    "</select> </span>")
+                    " / <select name='cronmonth'>" + str_opt_month +
+                    "</select </span>")
                 .appendTo(this)
                 .data("root", this)
                 .find("select")
@@ -339,7 +340,7 @@
                 .end();
 
             block["dow"] = $("<span class='cron-block cron-block-dow'>" +
-                    " on <select name='crondow'>" + str_opt_dow +
+                    " 的 <select name='crondow'>" + str_opt_dow +
                     "</select> </span>")
                 .appendTo(this)
                 .data("root", this)
@@ -349,9 +350,9 @@
                 .end();
 
             block["time"] = $("<span class='cron-block cron-block-time'>" +
-                    " at <select name='crontimehour' class='crontimehour'>" + str_opt_hid +
-                    "</select>:<select name='crontimemin' class='crontimemin'>" + str_opt_mih +
-                    " </span>")
+                    " 的 <select name='crontimehour' class='crontimehour'>" + str_opt_hid +
+                    "</select> 时 : <select name='crontimemin' class='crontimemin'>" + str_opt_mih +
+                    "</select> 分运行一次任务 </span>")
                 .appendTo(this)
                 .data("root", this)
                 .find("select.crontimehour")
