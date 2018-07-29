@@ -140,14 +140,16 @@
     // options for day of week
     var str_opt_dow = "";
     var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var daysZH = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
     for (var i = 0; i < days.length; i++) {
-        str_opt_dow += "<option value='" + i + "'>" + days[i] + "</option>\n";
+        str_opt_dow += "<option value='" + i + "'>" + daysZH[i] + "</option>\n";
     }
 
     // options for period
     var str_opt_period = "";
     var periods = ["everyNmins", "minute", "hour", "day", "week", "month", "year"];
-    for (var i = 0; i < periods.length; i++) { str_opt_period += "<option value='" + periods[i] + "'>" + periods[i] + "</option>\n"; }
+    var periodsZH = ["每间隔几分钟", "每分钟", "每小时", "每天", "每周", "每月", "每年"];
+    for (var i = 0; i < periods.length; i++) { str_opt_period += "<option value='" + periods[i] + "'>" + periodsZH[i] + "</option>\n"; }
 
     // display matrix
     var toDisplay = {
@@ -286,7 +288,7 @@
                 cv = o.customValues;
             if (defined(cv)) { for (var key in cv) { custom_periods += "<option value='" + cv[key] + "'>" + key + "</option>\n"; } }
             block["period"] = $("<span class='cronperiod'>" +
-                    "Every <select name='cronperiod'>" + custom_periods +
+                    "维度选择: <select name='cronperiod'>" + custom_periods +
                     str_opt_period + "</select> </span>")
                 .appendTo(this)
                 .data("root", this)
@@ -317,8 +319,8 @@
                 .end();
 
             block["mins"] = $("<span class='cron-block cron-block-mins'>" +
-                    " at <select name='cronmins'>" + str_opt_mih +
-                    "</select> minutes past the hour </span>")
+                    " 每小时的 <select name='cronmins'>" + str_opt_mih +
+                    "</select> 分运行一次任务 </span>")
                 .appendTo(this)
                 .data("root", this)
                 .find("select")
@@ -327,8 +329,8 @@
                 .end();
 
             block["everyNmins"] = $("<span class='cron-block cron-block-everyNmins'>" +
-                    "at every <select name='cronNmins'>" + str_opt_enm +
-                    "</select> minutes </span>")
+                    " 每间隔 <select name='cronNmins'>" + str_opt_enm +
+                    "</select> 分钟运行一次任务 </span>")
                 .appendTo(this)
                 .data("root", this)
                 .find("select")
