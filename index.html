@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>crontab</title>
+    <link type="text/css" href="./gentleSelect/jquery-gentleSelect.css" rel="stylesheet" />
+    <link type="text/css" href="./cron/jquery-cron.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+    <script type="text/javascript" src="./gentleSelect/jquery-gentleSelect.js"></script>
+    <script type="text/javascript" src="./cron/jquery-cron-zh.js"></script>
+</head>
+
+<body>
+    <div id="crontab"></div>
+    <div id="crontab-value"></div>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#crontab').cron({
+            initial: "42 3 * * 5",
+            onChange: function() {
+                $('#crontab-value').text($(this).cron("value"));
+            }
+        }); // apply cron with default options
+    });
+    </script>
+</body>
+
+</html>
